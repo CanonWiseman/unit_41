@@ -1,0 +1,5 @@
+div > a {
+    display: block;
+    margin: 25px;
+    font-size: 18px;
+}
