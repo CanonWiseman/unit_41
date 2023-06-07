@@ -1,12 +1,9 @@
 import React, {useState} from "react";
-import { Link, useHistory, useLocation } from "react-router-dom/cjs/react-router-dom.min";
+import { Link, useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import {v4 as uuid} from "uuid";
 
-const AddColorForm = ({setColor}) =>{
-    const location = useLocation();
+const AddColorForm = ({addColor}) =>{
     const history = useHistory();
-    
-    console.log(location);
 
     const INITIAL_VALUES = {
         colorName: "",
@@ -25,7 +22,7 @@ const AddColorForm = ({setColor}) =>{
 
     const handleSubmit = (e) =>{
         e.preventDefault();
-        setColor({
+        addColor({
             colorName: formData.colorName,
             colorValue: formData.colorValue,
             id: uuid()

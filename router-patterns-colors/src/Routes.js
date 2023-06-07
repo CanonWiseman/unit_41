@@ -1,20 +1,29 @@
-import React from "react";
-import {Route, Switch, Redirect} from "react-router-dom";
+import React, {useState, useEffect}from "react";
 import Colors from "./Colors";
 import AddColorForm from "./AddColorForm";
 import DisplayColor from "./DisplayColor";
-import useSetColor from "./useSetColor";
+import {Route, Switch, Redirect, BrowserRouter} from "react-router-dom";
+
 
 const Routes = () =>{
-    const [colors, setColor] = useSetColor();
+    const [colors, setColor] = useState([]);
+
+    function addColor(newColor){
+        const newColors = [...colors, {colorName: newColor.colorName, colorValue: newColor.colorValue}];
+        setColor(newColors);
+    }
+
+    console.log(colors);
 
     return (
-        <Switch>
-            <Route exact path="/colors/new"> <AddColorForm setColor={setColor}/> </Route>
-            <Route exact path="/colors/:color"> <DisplayColor/> </Route>
-            <Route exact path="/colors"> <Colors colors={colors}/> </Route>
-            <Route><Redirect to="/colors"/></Route>
-        </Switch>
+        <BrowserRouter>
+            <Switch>
+                <Route exact path="/colors/new"> <AddColorForm addColor={addColor}/> </Route>
+                <Route exact path="/colors/:color"> <DisplayColor/> </Route>
+                <Route exact path="/colors"> <Colors colors={colors}/> </Route>
+                <Route><Redirect to="/colors"/></Route>
+            </Switch>
+        </BrowserRouter>
     )
 }
 
